@@ -4,52 +4,43 @@ import random
 def check():
     if "?" not in guess:
         return "end"
+
 def correct(c, answer):
-    pass
+    n = answer.count(c)
+    i = answer.index(c)
+    guess[i] = c
+    for t in range(n-1):
+        i=answer.index(c, i+1)
+        guess[i] = c
+    g = ''.join(guess)
+    p1.clear()
+    p1.write(g, font=("", 40), align='center')
+
 
 def f0():
     p2.circle(40)
 
 def f1():
     p2.rt(90)
-    p2.fd(70)
-def f2():
-    p2.lt(135)
-    p2.fd(70)
-    p2.bk(70)
-def f3():
-    p2.lt(90)
-    p2.fd(70)
-    p2.bk(70)
-def f4():
-    p2.lt(135)
-    p2.fd(70)
-def f5():
-    p2.lt(45)
-    p2.fd(70)
-    p2.bk(70)
-def f6():
-    p2.rt(90)
-    p2.fd(70)
+    p2.fd(75)
 
-    p2.pensize(5)
-    p2.color("brown")
-    p2.rt(45)
-    p2.up()
-    p2.fd(60)
+def f2():
     p2.rt(90)
-    p2.bk(40)
-    p2.down()
-    p2.rt(90)
-    p2.fd(150)
-    p2.bk(150)
+    p2.fd(50)
+
+def f3():
+    p2.bk(100)
+
+def f4():
+    p2.fd(50)
     p2.lt(90)
-    p2.fd(340)
-    p2.rt(90)
-    p2.fd(110)
-    p2.rt(90)
-    p2.fd(30)
-    p2.ht()
+    p2.fd(50)
+
+def f5():
+    pass
+
+def f6():
+    pass
 
 def wrong(i):
     if i==0:
@@ -70,7 +61,7 @@ def wrong(i):
 word_list = ['cat', 'dog', 'cow', 'wolf', 'iguana', 'came', 'cayot', 'rabbit']
 answer = random.choice(word_list)
 guess = []
-for i in range(len(answer)):
+for i in answer:
     guess.append('?')
 p1 = Pen()
 p1.up()
@@ -81,9 +72,9 @@ p2.goto(-200, 50)
 p2.down()
 g = ''.join(guess)
 p1.write(g, font=("", 40), align='center')
-print(answer)
 
-for i in range(7):
+i=0
+while i<7:
     c = textinput("", "Enter a character:")
     while len(c)!=1:
         c = textinput("", "Enter Exactly one single character:")
@@ -91,6 +82,6 @@ for i in range(7):
         correct(c, answer)
     else:
         wrong(i)
+        i = i+1
     if check()=="end":
         exit()
-done()
